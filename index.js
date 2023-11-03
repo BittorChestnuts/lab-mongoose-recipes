@@ -49,13 +49,22 @@ mongoose
     ) 
   })
   .then((myfuckingditto)=>{
-    console.log(myfuckingditto.duration);
+    console.log(`the new duration of Rigattoni is: ${myfuckingditto.duration}` );
   })
 
-
+.then(() =>{
+  return Recipe.deleteOne(
+    {title: "Carrot Cake"}
+  )
+  .then((ditto) =>{
+    console.log("Carrot Cake removed");
+  })
+})
 
   .catch(error => {
     console.error('Error connecting to the database', error);
-  });
+  })
 
-  
+  .finally(() => {
+    mongoose.connection.close();
+  })  
