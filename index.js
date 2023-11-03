@@ -7,6 +7,20 @@ const data = require('./data');
 
 const MONGODB_URI = 'mongodb+srv://victorcastanos:12345@cluster0.mr2s8vc.mongodb.net/';
 
+let huevoFrito = {
+  title: "Huevo Frito",
+  level: "Easy Peasy",
+  ingredients: ["Huevo", "Aceite", "fuego"],
+  cuisine: "de toda la vida",
+  dishType: "main_course",
+  image: "https://imag.bonviveur.com/huevo-frito.jpg",
+  duration: 10 ,
+  creator: "Victor",
+  created: ""
+}
+const multipleRecipes = require("./data.json")
+
+
 // Connection to the database "recipe-app"
 mongoose
   .connect(MONGODB_URI)
@@ -16,8 +30,32 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
+    // Iteration 2
+    return Recipe.create(huevoFrito)
+    //console.log(huevoFrito.title)
   })
+
+  .then(() => {
+    // Iteration 3
+    return Recipe.create(multipleRecipes)
+    
+  })
+  .then(() => {
+    // Iteration 4
+    return Recipe.findOneAndUpdate(
+      {title: "Rigatoni alla Genovese"},
+      {duration: 100 },
+      {new: true}
+    ) 
+  })
+  .then((myfuckingditto)=>{
+    console.log(myfuckingditto.duration);
+  })
+
+
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  
